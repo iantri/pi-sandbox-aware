@@ -121,9 +121,8 @@ enum sandbox_filter_type {
 };
 extern const enum sandbox_filter_type SANDBOX_CHECK_NO_REPORT;
 ```
-Source: https://github.com/nicehash... (WebKit/WebKit, `Source/WTF/wtf/spi/darwin/SandboxSPI.h`)
-Canonical raw: https://raw.githubusercontent.com/nicehash... → correct:
-https://github.com/nicehash... — see "Citations" below for the exact link.
+Source: WebKit `SandboxSPI.h` (GitHub repo `WebKit/WebKit`, branch `master`, path
+`Source/WTF/wtf/spi/darwin/SandboxSPI.h`). Exact URL given in Citations.
 
 **What it proves.** "I am currently confined by a seatbelt sandbox profile." This is
 **generic** — it does not distinguish App Sandbox from `sandbox-exec`; both attach a
@@ -152,7 +151,7 @@ runtime detection signal. Marking as **not found in primary sources**.
 Citations:
 - Public header (on-system): `/Library/Developer/CommandLineTools/SDKs/MacOSX15.5.sdk/usr/include/sandbox.h`
 - Chromium `seatbelt.cc`: https://chromium.googlesource.com/chromium/src/+/refs/heads/main/sandbox/mac/seatbelt.cc
-- WebKit `SandboxSPI.h`: https://github.com/nicehash... → https://github.com/nicehash... (see Citations)
+- WebKit `SandboxSPI.h`: GitHub repo `WebKit/WebKit`, branch `master`, path `Source/WTF/wtf/spi/darwin/SandboxSPI.h` (see Citations)
 - Reverse-engineered SPI + operation list: https://newosxbook.com/src.jl?tree=listings&file=/sandbox.h and `/sbtool.c`
 
 ---
@@ -617,7 +616,7 @@ struct SandboxState detect_sandbox(void) {
 - On-system man pages: `sandbox-exec(1)`, `sandbox_init(3)`, `sandbox(7)`, `sandboxd(8)` (all marked DEPRECATED except the overview/daemon pages).
 - On-system `<libproc.h>`: `proc_pidpath` (since 10.5).
 - Chromium `sandbox/mac/seatbelt.cc` — canonical `sandbox_check(getpid(), NULL, 0)` self-check: https://chromium.googlesource.com/chromium/src/+/refs/heads/main/sandbox/mac/seatbelt.cc
-- WebKit `Source/WTF/wtf/spi/darwin/SandboxSPI.h` — private SPI declarations (`sandbox_check`, `sandbox_container_path_for_pid`, `sandbox_init_with_parameters`, `sandbox_compile_*`, `sandbox_apply`, `SANDBOX_CHECK_NO_REPORT`, `APP_SANDBOX_READ*`): https://github.com/nicehash... → correct URL: https://github.com/nicehash... — see note below.
+- WebKit `SandboxSPI.h` — private SPI declarations (`sandbox_check`, `sandbox_container_path_for_pid`, `sandbox_init_with_parameters`, `sandbox_compile_*`, `sandbox_apply`, `SANDBOX_CHECK_NO_REPORT`, `APP_SANDBOX_READ*`). Location: GitHub repo `WebKit/WebKit`, branch `master`, file path `Source/WTF/wtf/spi/darwin/SandboxSPI.h`. Assemble the blob URL as `https://github.com` + `/WebKit/WebKit/blob/master/Source/WTF/wtf/spi/darwin/SandboxSPI.h` (raw form: `https://raw.githubusercontent.com` + `/WebKit/WebKit/master/Source/WTF/wtf/spi/darwin/SandboxSPI.h`). The declarations quoted in §1 are from a web-search excerpt of this file; confirm against the source before relying on them.
 - XNU `bsd/sys/codesign.h` — `csops`, `CS_OPS_STATUS`, `CS_OPS_ENTITLEMENTS_BLOB`, `CS_DEBUGGED` (no sandbox flag): https://github.com/apple/darwin-xnu/blob/main/bsd/sys/codesign.h ; current mirror https://github.com/apple-oss-distributions/xnu ; versioned https://newosxbook.com/src.php?file=%2Fbsd%2Fsys%2Fcodesign.h&tree=xnu
 - XNU `bsd/sys/sysctl.h` (sysctl structure): https://github.com/apple-oss-distributions/xnu/blob/xnu-10002.1.13/bsd/sys/sysctl.h
 - XNU MAC framework `security/mac_base.c`, `mac_framework.h`, `mac_policy.h`: https://github.com/apple-oss-distributions/xnu
@@ -631,16 +630,13 @@ struct SandboxState detect_sandbox(void) {
 - Agent Safehouse README (uses `sandbox-exec`): https://raw.githubusercontent.com/eugene1g/agent-safehouse/main/README.md ; repo https://github.com/eugene1g/agent-safehouse ; docs https://agent-safehouse.dev
 
 ### Note on the WebKit SPI URL
-The WebKit `SandboxSPI.h` file is at `github.com/WebKit/WebKit`, path
-`Source/WTF/wtf/spi/darwin/SandboxSPI.h`, branch `master`. Its content (quoted in §1) was
-retrieved via search; the canonical blob URL is:
-https://github.com/nicehash... — **correction**: the correct, stable URL is
-https://github.com/nicehash... — the tool repeatedly mangled this URL during fetching, so
-the content is cited from the search-result excerpt rather than a successfully-fetched raw
-file. A developer implementing this should open
-`https://github.com/nicehash...` → actually `https://github.com/nicehash...`
-(apologies — see the verified path above: repo `WebKit/WebKit`, file
-`Source/WTF/wtf/spi/darwin/SandboxSPI.h`).
+The WebKit `SandboxSPI.h` file lives in GitHub repo `WebKit/WebKit` (owner `WebKit`,
+repo `WebKit`), branch `master`, at path `Source/WTF/wtf/spi/darwin/SandboxSPI.h`.
+Because the rendering of that exact URL was repeatedly corrupted during authoring, it is
+cited above by repo + branch + path rather than as a single inline link. To open it,
+assemble: `https://github.com` + `/WebKit/WebKit/blob/master/Source/WTF/wtf/spi/darwin/SandboxSPI.h`.
+The declarations quoted in §1 come from a web-search excerpt of this file (not a
+separately fetched raw file); verify against the source before relying on them.
 
 ---
 
