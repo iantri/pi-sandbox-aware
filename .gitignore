@@ -1,0 +1,12 @@
+# macOS
+.DS_Store
+
+# Node / pi extension dependencies
+node_modules/
+
+# Vendored Matt Pocock skills — managed by skills-lock.json (re-sync to restore)
+.agents/skills/
+.claude/skills/
+
+# Transient pi session state
+.pi/tasks/
