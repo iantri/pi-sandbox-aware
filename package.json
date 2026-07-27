@@ -1,0 +1,48 @@
+{
+  "name": "@iantri/pi-sandbox-aware",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Make pi aware when it is running inside a macOS sandbox",
+  "type": "module",
+  "license": "MIT",
+  "author": "iantri",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/iantri/pi-sandbox-aware.git"
+  },
+  "homepage": "https://github.com/iantri/pi-sandbox-aware",
+  "bugs": {
+    "url": "https://github.com/iantri/pi-sandbox-aware/issues"
+  },
+  "keywords": [
+    "pi-package",
+    "pi-extension",
+    "sandbox"
+  ],
+  "engines": {
+    "node": ">=22.19.0"
+  },
+  "pi": {
+    "extensions": [
+      "./src/index.ts"
+    ]
+  },
+  "dependencies": {
+    "koffi": "3.1.2"
+  },
+  "peerDependencies": {
+    "@earendil-works/pi-coding-agent": "*",
+    "@earendil-works/pi-tui": "*"
+  },
+  "peerDependenciesMeta": {
+    "@earendil-works/pi-coding-agent": {
+      "optional": true
+    },
+    "@earendil-works/pi-tui": {
+      "optional": true
+    }
+  },
+  "scripts": {
+    "test": "node --test"
+  }
+}
