@@ -13,13 +13,21 @@ test("sandboxStatus when not sandboxed warns about full system access", () => {
   const status = sandboxStatus(false);
   assert.equal(
     status.notifyText,
-    "Sandbox status: 🔓 INACTIVE - WARNING: Full system access"
+    "Sandbox status: 🔓 NOT SANDBOXED - WARNING: Full system access"
   );
   assert.equal(status.notifySeverity, "warning");
   assert.equal(status.footerText, "🔓 NO SB");
 });
 
-test("sandboxContextNote is null when not sandboxed", () => {
+test("sandboxStatus when detection fails reports an unknown status", () => {
+  assert.deepEqual(sandboxStatus(null), {
+    notifyText: "Sandbox status: ❔ unknown",
+    notifySeverity: "warning",
+    footerText: "❔ sb?",
+  });
+});
+
+test("sandboxContextNote is null when Pi is not sandboxed", () => {
   assert.equal(sandboxContextNote(false), null);
 });
 
@@ -30,4 +38,11 @@ test("sandboxContextNote when sandboxed tells the agent how to recognize and esc
   assert.match(note as string, /Operation not permitted/);
   assert.match(note as string, /read-only/);
   assert.match(note as string, /not preemptively/);
+});
+
+test("sandboxContextNote preserves caution when sandbox status is unknown", () => {
+  const note = sandboxContextNote(null);
+  assert.notEqual(note, null);
+  assert.match(note as string, /sandbox status is unknown/);
+  assert.match(note as string, /Operation not permitted/);
 });

@@ -3,10 +3,11 @@
 
 # Node / pi extension dependencies
 node_modules/
+package-lock.json
 
 # Vendored Matt Pocock skills — managed by skills-lock.json (re-sync to restore)
 .agents/skills/
 .claude/skills/
 
 # Transient pi session state
-.pi/tasks/
+.pi/

@@ -1,14 +1,28 @@
 import type { ExtensionAPI } from "@earendil-works/pi-coding-agent";
 import { detectSandbox } from "./detect.ts";
+import type { SandboxCheckFn } from "./detect.ts";
 import { sandboxContextNote, sandboxStatus } from "./messages.ts";
 import { loadSandboxCheck } from "./spi.ts";
 
-let sandboxed = false;
+export type SandboxCheckLoader = () => SandboxCheckFn | null;
 
-export default function (pi: ExtensionAPI) {
+let sandboxed: boolean | null = null;
+
+export default function (
+  pi: ExtensionAPI,
+  sandboxCheckLoader: SandboxCheckLoader = loadSandboxCheck
+) {
   pi.on("session_start", async (_event, ctx) => {
-    const sandboxCheck = loadSandboxCheck();
-    sandboxed = sandboxCheck ? detectSandbox(sandboxCheck) : false;
+    try {
+      const sandboxCheck = sandboxCheckLoader();
+      sandboxed = sandboxCheck
+        ? detectSandbox(sandboxCheck)
+        : process.platform === "darwin"
+          ? null
+          : false;
+    } catch {
+      sandboxed = null;
+    }
 
     const { notifyText, notifySeverity, footerText } = sandboxStatus(sandboxed);
     if (ctx.hasUI) {

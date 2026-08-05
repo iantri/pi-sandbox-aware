@@ -1,5 +1,7 @@
 # Detecting That You're Running Inside a macOS Sandbox
 
+> **Historical research — not current guidance.** This document records an exploration completed on 2026-07-27. Some options and fallback strategies described here are not part of the shipped extension. Use the accepted [sandbox-detection ADR](../adr/0001-detect-sandbox-via-sandbox-check-ffi.md) and the current source code for implementation decisions. The research verified `sandbox-exec` behavior on one machine. It inferred, but did not separately test, App Sandbox behavior. References to `libsystem_sandbox` describe the explored system component; the shipped extension loads `libsandbox.1.dylib`.
+
 Research notes for a "sandbox-aware" pi extension. Goal: let a CLI coding-agent tool
 detect, at runtime, that **it itself** is executing inside a macOS sandbox (App Sandbox /
 seatbelt / `sandboxd`), so it can adjust its behavior. macOS-only; exploration phase.
@@ -17,9 +19,9 @@ Empirical tests were run on the host machine (Apple Silicon, macOS 15.5, SDK
   `libsystem_sandbox`, not in the public `<sandbox.h>`). It returns `1` if the calling
   process is confined by **any** seatbelt sandbox profile, `0` otherwise. It is the
   canonical self-check used by Chromium (`Seatbelt::IsSandboxed()`) and is **verified
-  empirically on this machine**: `0` unsandboxed, `1` under `sandbox-exec`. It covers
-  **both** `sandbox-exec`-style sandboxes (e.g. Agent Safehouse) **and** App Sandbox,
-  because both are enforced by the same kernel `Sandbox.kext` MAC policy.
+  empirically on this machine**: `0` outside a sandbox, `1` under `sandbox-exec`. It
+  was not separately tested for App Sandbox, although the shared kernel `Sandbox.kext`
+  MAC policy suggests the same result.
 - **`sandbox_container_path_for_pid(getpid(), ...)`** is the clean way to *distinguish*
   App Sandbox (returns the container path) from a generic `sandbox-exec` sandbox (returns
   `-1`, "sandboxed but not containerized"). Verified empirically.

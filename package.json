@@ -43,6 +43,6 @@
     }
   },
   "scripts": {
-    "test": "node --test"
+    "test": "node --test src/*.test.ts"
   }
 }
