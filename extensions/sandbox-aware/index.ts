@@ -6,12 +6,12 @@ import { loadSandboxCheck } from "./spi.ts";
 
 export type SandboxCheckLoader = () => SandboxCheckFn | null;
 
-let sandboxed: boolean | null = null;
-
 export default function (
   pi: ExtensionAPI,
   sandboxCheckLoader: SandboxCheckLoader = loadSandboxCheck
 ) {
+  let sandboxed: boolean | null = null;
+
   pi.on("session_start", async (_event, ctx) => {
     try {
       const sandboxCheck = sandboxCheckLoader();

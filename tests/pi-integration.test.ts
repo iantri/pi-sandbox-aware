@@ -24,12 +24,32 @@ for (const scenario of [
     assert.match(prompt, /Fixture system prompt\./);
     assert.equal(prompt.includes("<sandbox-context>"), scenario.guidance);
     if (scenario.guidance) assert.match(prompt, /not preemptively/);
-    if (scenario.status === "❔ sb?") assert.match(prompt, /sandbox status is unknown/);
+    if (scenario.status === "❔ sb?") {
+      assert.match(prompt, /may be running in a sandbox/);
+      assert.doesNotMatch(prompt, /This coding agent is running in a sandbox/);
+    }
     await h.close();
     assert.deepEqual(h.statuses.at(-1), { key: "sandbox", text: undefined });
     assert.deepEqual(h.errors, []);
   });
 }
+
+test("real Pi: extension instances keep their own detection state", { timeout: 15000 }, async (t) => {
+  const first = await createHarness(t, { sandboxCheckLoader: () => () => 0 });
+  await t.test("another session's detection failure does not change the first session", async (t) => {
+    const second = await createHarness(t, { sandboxCheckLoader: () => {
+      throw new Error("Fixture loader failure");
+    } });
+    await first.session.prompt("First session prompt.");
+    await second.session.prompt("Second session prompt.");
+    assert.equal(first.requests.length, 1);
+    assert.equal(second.requests.length, 1);
+    assert.doesNotMatch(systemText(first.requests[0]), /<sandbox-context>/);
+    assert.match(systemText(second.requests[0]), /may be running in a sandbox/);
+    assert.deepEqual(first.errors, []);
+    assert.deepEqual(second.errors, []);
+  });
+});
 
 test("real Pi: guidance works without a terminal UI", { timeout: 15000 }, async (t) => {
   const h = await createHarness(t, { sandboxCheckLoader: () => () => 1, hasUI: false });

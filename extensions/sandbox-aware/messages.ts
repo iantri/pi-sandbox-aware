@@ -28,12 +28,11 @@ export function sandboxStatus(sandboxed: boolean | null): SandboxStatus {
 
 export function sandboxContextNote(sandboxed: boolean | null): string | null {
   if (sandboxed === false) return null;
-  const uncertainty = sandboxed === null
-    ? "The sandbox status is unknown, so you may be running in a sandbox. "
-    : "";
+  const opening = sandboxed === null
+    ? "Sandbox detection failed. This coding agent may be running in a sandbox; its access restrictions are unknown. "
+    : "This coding agent is running in a sandbox that restricts its access. ";
   return (
-    "<sandbox-context>" + uncertainty +
-    "This coding agent is running in a sandbox that restricts its access. " +
+    "<sandbox-context>" + opening +
     "If an operation fails with \"Operation not permitted\" or EPERM on something that would normally work, it is likely the sandbox blocking you. " +
     "If you are blocked by the sandbox, ask the user to adjust it: specify the exact file and/or network path/domain you need access to, and whether that should be read-only or read-write. " +
     "Prefer read-only whenever possible. Escalate only when you have actually been blocked, not preemptively.</sandbox-context>"

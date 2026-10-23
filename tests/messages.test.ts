@@ -43,6 +43,7 @@ test("sandboxContextNote when sandboxed tells the agent how to recognize and esc
 test("sandboxContextNote preserves caution when sandbox status is unknown", () => {
   const note = sandboxContextNote(null);
   assert.notEqual(note, null);
-  assert.match(note as string, /sandbox status is unknown/);
+  assert.match(note as string, /may be running in a sandbox/);
+  assert.doesNotMatch(note as string, /This coding agent is running in a sandbox/);
   assert.match(note as string, /Operation not permitted/);
 });

@@ -87,6 +87,6 @@ test("extension registers handlers and reports sandbox state through Pi seams", 
   });
   assert.match(
     (unknownResult as { systemPrompt: string }).systemPrompt,
-    /sandbox status is unknown/
+    /may be running in a sandbox/
   );
 });
