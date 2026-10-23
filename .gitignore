@@ -3,9 +3,9 @@
 
 # Node / pi extension dependencies
 node_modules/
-package-lock.json
 
-# Vendored Matt Pocock skills — managed by skills-lock.json (re-sync to restore)
+# Local skill installations and their lockfile
+skills-lock.json
 .agents/skills/
 .claude/skills/
 

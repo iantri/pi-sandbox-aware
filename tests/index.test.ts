@@ -1,6 +1,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import extension from "./index.ts";
+import type { ExtensionAPI } from "@earendil-works/pi-coding-agent";
+import extension from "../extensions/sandbox-aware/index.ts";
 
 interface HandlerContext {
   hasUI: boolean;
@@ -35,7 +36,7 @@ test("extension registers handlers and reports sandbox state through Pi seams", 
       on: (eventName, handler) => {
         handlers.set(eventName, handler);
       },
-    } as any,
+    } as ExtensionAPI,
     () => () => 1
   );
 
@@ -71,7 +72,7 @@ test("extension registers handlers and reports sandbox state through Pi seams", 
       on: (eventName, handler) => {
         handlers.set(eventName, handler);
       },
-    } as any,
+    } as ExtensionAPI,
     () => {
       throw new Error("sandbox_check unavailable");
     }

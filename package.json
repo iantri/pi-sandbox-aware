@@ -1,7 +1,6 @@
 {
   "name": "@iantri/pi-sandbox-aware",
   "version": "0.1.0",
-  "private": true,
   "description": "Make pi aware when it is running inside a macOS sandbox",
   "type": "module",
   "license": "MIT",
@@ -22,9 +21,18 @@
   "engines": {
     "node": ">=22.19.0"
   },
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "extensions/",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
   "pi": {
     "extensions": [
-      "./src/index.ts"
+      "./extensions/sandbox-aware/index.ts"
     ]
   },
   "dependencies": {
@@ -43,6 +51,23 @@
     }
   },
   "scripts": {
-    "test": "node --test src/*.test.ts"
+    "test": "node --import tsx --test tests/*.test.ts",
+    "typecheck": "tsc --noEmit",
+    "test:native": "node --import tsx --test verification/native.test.ts",
+    "prepublishOnly": "npm run typecheck && npm test"
+  },
+  "devDependencies": {
+    "@earendil-works/pi-coding-agent": "1.1.0",
+    "@earendil-works/pi-tui": "1.1.0",
+    "@types/node": "24.6.0",
+    "tsx": "4.20.5",
+    "typescript": "5.9.3"
+  },
+  "overrides": {
+    "@earendil-works/pi-agent-core": "1.1.0",
+    "@earendil-works/pi-ai": "1.1.0",
+    "@earendil-works/pi-codemode": "1.1.0",
+    "@earendil-works/pi-mcp": "1.1.0",
+    "@earendil-works/pi-tui": "1.1.0"
   }
 }

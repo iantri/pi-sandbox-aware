@@ -4,6 +4,10 @@ The domain of making pi aware that it is running inside a macOS sandbox, so the 
 
 ## Language
 
+**pi-sandbox-aware**:
+This Pi extension, which makes Pi aware it is running in a sandbox. This is the extension's name in prose as well as its package name.
+_Avoid_: Sandbox Aware, SandboxAware, Sandbox (to refer to the extension), etc.
+
 **Sandbox**:
 A macOS seatbelt confinement that restricts a process's file, network, and process access according to a profile.
 _Avoid_: container, jail, chroot

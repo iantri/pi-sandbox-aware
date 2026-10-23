@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { sandboxContextNote, sandboxStatus } from "./messages.ts";
+import { sandboxContextNote, sandboxStatus } from "../extensions/sandbox-aware/messages.ts";
 
 test("sandboxStatus when sandboxed reports an active sandbox", () => {
   const status = sandboxStatus(true);
