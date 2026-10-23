@@ -1,7 +1,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import type { ExtensionAPI } from "@earendil-works/pi-coding-agent";
-import extension from "../extensions/sandbox-aware/index.ts";
+import extension from "../extensions/pi-sandbox-aware/index.ts";
 
 interface HandlerContext {
   hasUI: boolean;

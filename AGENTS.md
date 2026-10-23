@@ -62,6 +62,6 @@ the fact rather than hedging around it, and cut ornament and filler.
 ## Build/runtime notes
 
 - Tests use Node's built-in runner with `tsx`; type checking is a separate step and emits no compiled files. Use explicit `.ts` extensions in relative imports.
-- Runtime code lives in `extensions/sandbox-aware/`; tests live in `tests/`. The `pi.extensions` manifest declares the entry point, and the npm `files` allowlist keeps development-only files out of releases.
+- Runtime code lives in `extensions/pi-sandbox-aware/`; tests live in `tests/`. The `pi.extensions` manifest declares the entry point, and the npm `files` allowlist keeps development-only files out of releases.
 - `sandbox_check(getpid(), NULL, 0)` returns `1` under Agent Safehouse and `0` outside; the only reliable generic seatbelt self-check.
 - Koffi is a runtime dependency, pinned to `3.1.2`. Pi loads the TypeScript source directly; there is no build step.

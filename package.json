@@ -32,7 +32,7 @@
   ],
   "pi": {
     "extensions": [
-      "./extensions/sandbox-aware/index.ts"
+      "./extensions/pi-sandbox-aware/index.ts"
     ]
   },
   "dependencies": {

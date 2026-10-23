@@ -17,7 +17,7 @@ import {
   type ExtensionError,
   type ExtensionUIContext,
 } from "@earendil-works/pi-coding-agent";
-import extension, { type SandboxCheckLoader } from "../extensions/sandbox-aware/index.ts";
+import extension, { type SandboxCheckLoader } from "../extensions/pi-sandbox-aware/index.ts";
 
 export interface WireRequest {
   messages: Array<{ role: string; content: unknown }>;

@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { detectSandbox } from "../extensions/sandbox-aware/detect.ts";
+import { detectSandbox } from "../extensions/pi-sandbox-aware/detect.ts";
 
 test("detectSandbox returns true when sandbox_check returns 1", () => {
   const sandboxCheck = () => 1;

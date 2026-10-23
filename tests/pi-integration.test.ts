@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
 import { fileURLToPath } from "node:url";
-import type { SandboxCheckLoader } from "../extensions/sandbox-aware/index.ts";
+import type { SandboxCheckLoader } from "../extensions/pi-sandbox-aware/index.ts";
 import { createHarness, systemText } from "./harness.ts";
 
 for (const scenario of [
@@ -92,6 +92,6 @@ test("real Pi: the package manifest discovers just the pi-sandbox-aware entry po
   const loaded = loader.getExtensions();
   assert.deepEqual(loaded.errors, []);
   assert.equal(loaded.extensions.length, 1);
-  assert.equal(loaded.extensions[0].path, fileURLToPath(new URL("../extensions/sandbox-aware/index.ts", import.meta.url)));
+  assert.equal(loaded.extensions[0].path, fileURLToPath(new URL("../extensions/pi-sandbox-aware/index.ts", import.meta.url)));
   assert.equal(loaded.extensions[0].handlers.has("session_start"), true);
 });
